@@ -1,0 +1,15 @@
+name: deploy
+on: workflow_dispatch
+permissions:
+  contents: read
+  id-token: write
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: aws-actions/configure-aws-credentials@e1253824e5c10ff9df46874f81ed3ec929e19cfd # v6.3.0
+        with:
+          role-to-assume: arn:aws:iam::123456789012:role/ghassess-fake-deploy
+          aws-region: us-east-1
+      - run: echo "deploying with short-lived OIDC credentials"
